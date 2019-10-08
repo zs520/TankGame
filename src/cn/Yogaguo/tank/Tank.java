@@ -12,18 +12,44 @@ public class Tank {
 	 public static final int SPEED = 5;
 	 private boolean bL,bR,bU,bD;
 	 private boolean moving;
+	 private boolean live = true;
 	 private Group group;
-	 //持有对方的引用
-	 TankFrame tf;
-	 public Tank(int x,int y,Direct dir,Group group,TankFrame tf) {
+     private Bullet bullet;
+	 public Tank(int x,int y,Direct dir,Group group) {
           this.x = x;
           this.y = y;
           this.dir = dir;
           this.group = group;
-          this.tf = tf;
 	 }
-	 
+
+	public boolean isLive() {
+		return live;
+	}
+
+	public void setLive(boolean live) {
+		this.live = live;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public void paint(Graphics g) {
+	 	if(!this.isLive()){
+	 		return;
+		}
 	     if(this.group == Group.GOOD) {
              switch (dir) {
                  case L:
@@ -105,7 +131,9 @@ public class Tank {
 	}
 
     private void fire() {
-	     tf.add(new Bullet(x,y,this.dir,this.group));
+	 	int bx = x + ResourceMgr.goodTankU.getWidth()/2 - ResourceMgr.bulletU.getWidth();
+	 	int by = y + ResourceMgr.goodTankU.getHeight()/2 - ResourceMgr.bulletU.getHeight();
+	     TankFrame.INSTANCE.add(new Bullet(bx+7,by-5,this.dir,this.group));
     }
 
     private void setMainDir() {
@@ -152,4 +180,7 @@ public class Tank {
 	 }
 
 
+	public void die() {
+	 	this.setLive(false);
+	}
 }

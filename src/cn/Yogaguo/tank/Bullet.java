@@ -1,13 +1,35 @@
 package cn.Yogaguo.tank;
 
 import java.awt.*;
-
+@SuppressWarnings("all")
 public class Bullet {
     private int x, y;
     private Direct dir;
     public static final int SPEED = 6;
     private Group group;
+    private boolean live = true;
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+    public void setLive(boolean live) {
+        this.live = live;
+    }
     public Bullet(int x, int y, Direct dir, Group group) {
         this.x = x;
         this.y = y;
@@ -38,18 +60,45 @@ public class Bullet {
     private void move() {
         switch (dir) {
             case L:
-                x-=SPEED;
+                x -= SPEED;
                 break;
             case R:
-                x+=SPEED;
+                x += SPEED;
                 break;
             case U:
-                y-=SPEED;
+                y -= SPEED;
                 break;
             case D:
-                y+=SPEED;
+                y += SPEED;
                 break;
             default:
         }
+        boundsCheck();
     }
+    public   void collideWithTank(Tank tank){
+        if(!tank.isLive()){
+            return;
+        }
+        Rectangle rec1 = new Rectangle(x,y,ResourceMgr.bulletU.getWidth(),
+                ResourceMgr.bulletU.getHeight());
+
+        Rectangle rec2 = new Rectangle(tank.getX(),tank.getY(),
+                ResourceMgr.goodTankU.getWidth(),ResourceMgr.goodTankU.getHeight());
+
+        if(rec1.intersects(rec2)){
+          this.die();
+          tank.die();
+        }
+    }
+
+    private void die() {
+        this.setLive(false);
+    }
+
+    private void boundsCheck() {
+        if (x < 0 || y < 30 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+              live = false;
+        }
+    }
+
 }
