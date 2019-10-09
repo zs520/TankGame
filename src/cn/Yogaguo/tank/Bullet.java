@@ -76,7 +76,10 @@ public class Bullet {
         boundsCheck();
     }
     public   void collideWithTank(Tank tank){
-        if(!tank.isLive()){
+        if(!this.isLive()||!tank.isLive()){
+            return;
+        }
+        if(this.group == tank.getGroup()){
             return;
         }
         Rectangle rec1 = new Rectangle(x,y,ResourceMgr.bulletU.getWidth(),
