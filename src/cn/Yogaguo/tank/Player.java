@@ -1,5 +1,8 @@
 package cn.Yogaguo.tank;
 
+import cn.Yogaguo.tank.Strategy.DefalutFireStrategy;
+import cn.Yogaguo.tank.Strategy.FireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -19,6 +22,22 @@ public class Player {
           this.dir = dir;
           this.group = group;
 	 }
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public Direct getDir() {
+		return dir;
+	}
+
+	public void setDir(Direct dir) {
+		this.dir = dir;
+	}
 
 	public boolean isLive() {
 		return live;
@@ -111,9 +130,15 @@ public class Player {
 	}
 
     private void fire() {
-	 	int bx = x + ResourceMgr.goodTankU.getWidth()/2 - ResourceMgr.bulletU.getWidth();
-	 	int by = y + ResourceMgr.goodTankU.getHeight()/2 - ResourceMgr.bulletU.getHeight();
-	     TankFrame.INSTANCE.add(new Bullet(bx+7,by-5,this.dir,this.group));
+	 	String classname = PropertyMgr.get("tankFireStrategy");
+		FireStrategy strategy = null;
+		try {
+			Class clazz = Class.forName("cn.Yogaguo.tank.Strategy."+classname);
+			strategy =(FireStrategy) clazz.getDeclaredConstructor().newInstance();
+			strategy.fire(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     private void setMainDir() {

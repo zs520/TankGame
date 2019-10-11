@@ -41,7 +41,8 @@ import java.util.List;
 		bullets = new ArrayList<>();
 		tanks = new ArrayList<>();
 		explodes = new ArrayList<>();
-		for(int i = 0;i < 10 ;i++){
+		int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
+		for(int i = 0;i < initTankCount ;i++){
 			tanks.add(new Tank(100 + 50 * i,200,Direct.D,Group.BAD));
 		}
 	}

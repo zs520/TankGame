@@ -1,0 +1,6 @@
+ initTankCount=10
+ GameWidth=800
+ GameHeight=600
+#tank Fire Strategy
+  #tankFireStrategy=DefalutFireStrategy
+  tankFireStrategy=FourDirFireStrategy

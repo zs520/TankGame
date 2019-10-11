@@ -13,7 +13,6 @@ public class Tank {
     private Direct dir;
     public static final int SPEED = 5;
     private boolean bL, bR, bU, bD;
-    private boolean moving = true;
     private boolean live = true;
     private Group group;
     private Bullet bullet;
@@ -86,9 +85,6 @@ public class Tank {
 
     }
     private void move() {
-        if (!moving) {
-            return;
-        }
         oldX = x;
         oldY = y;
         switch (dir) {
