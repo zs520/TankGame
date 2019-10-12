@@ -3,7 +3,7 @@ package cn.Yogaguo.tank;
 import java.awt.*;
 
 @SuppressWarnings("all")
-public class Explode {
+public class Explode extends AbstractObjejct {
     private int x, y;
     private int height;
     private int width;

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @SuppressWarnings("all")
-public class Tank {
+public class Tank extends AbstractObjejct {
     private int x, y;
     private Direct dir;
     public static final int SPEED = 5;

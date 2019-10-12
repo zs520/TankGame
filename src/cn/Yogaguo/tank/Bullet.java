@@ -2,7 +2,7 @@ package cn.Yogaguo.tank;
 
 import java.awt.*;
 @SuppressWarnings("all")
-public class Bullet {
+public class Bullet extends AbstractObjejct {
     private int x, y;
     private Direct dir;
     public static final int SPEED = 6;

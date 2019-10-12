@@ -14,9 +14,7 @@ import java.util.List;
 	public static final TankFrame INSTANCE = new TankFrame();
 
 	   private  Player myTank = null ;
-	   private List<Bullet> bullets;
-	   private List<Tank> tanks;
-	   private List<Explode> explodes;
+	   List<AbstractObjejct> objejcts;
 	   public static final int GAME_WIDTH = 800;
 	   public static final int GAME_HEIGHT = 600;
        private TankFrame() {
@@ -38,27 +36,29 @@ import java.util.List;
 
 	private void initGameObjects() {
 		myTank = new Player(100,100,Direct.R,Group.GOOD);
-		bullets = new ArrayList<>();
-		tanks = new ArrayList<>();
-		explodes = new ArrayList<>();
+		 objejcts = new ArrayList<>();
 		int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount"));
 		for(int i = 0;i < initTankCount ;i++){
-			tanks.add(new Tank(100 + 50 * i,200,Direct.D,Group.BAD));
+			objejcts.add(new Tank(100 + 50 * i,200,Direct.D,Group.BAD));
 		}
 	}
 
-	public void add(Bullet bullet){
-      	 this.bullets.add(bullet);
-	 }
+	public void add(AbstractObjejct obj){
+       	objejcts.add(obj);
+	}
+
       @Override
     public void paint(Graphics g) {
        	Color c = g.getColor();
        	g.setColor(Color.yellow);
-       	g.drawString("bullets:"+bullets.size(),10,50);
+       	/*g.drawString("bullets:"+bullets.size(),10,50);
        	g.drawString("tanks"+tanks.size(),10,70);
-       	g.setColor(c);
+       	g.setColor(c);*/
     	 myTank.paint(g);
-    	 for(int i  = 0;i < tanks.size();i++){
+    	 for(int i = 0;i <objejcts.size(); i++){
+    	 	objejcts.get(i).paint(g);
+		 }
+    	/* for(int i  = 0;i < tanks.size();i++){
     	 	if(!tanks.get(i).isLive()){
     	 		tanks.remove(i);
 			}else {
@@ -81,7 +81,7 @@ import java.util.List;
 			}else {
 				bullets.get(i).paint(g);
 			}
-		  }
+		  }*/
     	
     }
 	   Image offScreenImage = null;
@@ -99,9 +99,6 @@ import java.util.List;
 		   g.drawImage(offScreenImage, 0, 0, null);
 	   }
 
-	public void add(Explode explode) {
-	   	this.explodes.add(explode);
-	}
 
 	private class TankKeyListener extends KeyAdapter{
 	 
