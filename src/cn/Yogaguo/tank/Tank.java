@@ -1,7 +1,7 @@
 package cn.Yogaguo.tank;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,6 +20,9 @@ public class Tank extends AbstractObjejct {
     private int width;
     int oldX,oldY;
     private Random r = new Random();
+    private Rectangle rect = null;
+    private int Width =ResourceMgr.goodTankU.getWidth();
+    private int Height =ResourceMgr.goodTankU.getHeight();
     public Group getGroup() {
         return group;
     }
@@ -35,8 +38,9 @@ public class Tank extends AbstractObjejct {
         this.group = group;
         this.height = ResourceMgr.badTankD.getHeight();
         this.width = ResourceMgr.badTankD.getWidth();
+        rect = new Rectangle(x,y,Width,Height);
     }
-
+    @Override
     public boolean isLive() {
         return live;
     }
@@ -60,7 +64,7 @@ public class Tank extends AbstractObjejct {
     public void setY(int y) {
         this.y = y;
     }
-
+    @Override
     public void paint(Graphics g) {
         if (!this.isLive()) {
             return;
@@ -82,6 +86,8 @@ public class Tank extends AbstractObjejct {
         }
 
         move();
+        rect.x = x;
+        rect.y = y;
 
     }
     private void move() {
@@ -103,7 +109,9 @@ public class Tank extends AbstractObjejct {
             default:
         }
         boundsCheck();
-        randomDir();
+        if(r.nextInt(100) > 80) {
+            randomDir();
+        }
         if(r.nextInt(100) > 90) {
             fire();
         }
@@ -114,13 +122,15 @@ public class Tank extends AbstractObjejct {
         }
     }
     private void fire() {
-        int bx = x + ResourceMgr.goodTankU.getWidth() / 2 - ResourceMgr.bulletU.getWidth();
-        int by = y + ResourceMgr.goodTankU.getHeight() / 2 - ResourceMgr.bulletU.getHeight();
+        int bx = x +  Width / 2 - ResourceMgr.bulletU.getWidth();
+        int by = y +  Height/ 2 - ResourceMgr.bulletU.getHeight();
         TankFrame.INSTANCE.add(new Bullet(bx + 7, by - 5, this.dir, this.group));
     }
+    public Rectangle getRect(){
+        return rect;
+    }
 
-
-    private void back() {
+    public void back() {
         this.x = oldX;
         this.y = oldY;
     }

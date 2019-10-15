@@ -8,6 +8,22 @@ public class Bullet extends AbstractObjejct {
     public static final int SPEED = 6;
     private Group group;
     private boolean live = true;
+    private Rectangle rect = null;
+    private int Width = ResourceMgr.bulletU.getWidth();
+    private int Height = ResourceMgr.bulletU.getHeight();
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public int getX() {
         return x;
     }
@@ -23,7 +39,7 @@ public class Bullet extends AbstractObjejct {
     public void setY(int y) {
         this.y = y;
     }
-
+    @Override
     public boolean isLive() {
         return live;
     }
@@ -35,8 +51,9 @@ public class Bullet extends AbstractObjejct {
         this.y = y;
         this.dir = dir;
         this.group = group;
+        rect = new Rectangle(x,y,Width,Height);
     }
-
+    @Override
     public void paint(Graphics g) {
 
         switch (dir) {
@@ -55,6 +72,9 @@ public class Bullet extends AbstractObjejct {
             default:
         }
         move();
+        //update the rect
+        rect.x = x;
+        rect.y = y;
     }
 
     private void move() {
@@ -73,28 +93,15 @@ public class Bullet extends AbstractObjejct {
                 break;
             default:
         }
+
         boundsCheck();
     }
-    public   void collideWithTank(Tank tank){
-        if(!this.isLive()||!tank.isLive()){
-            return;
-        }
-        if(this.group == tank.getGroup()){
-            return;
-        }
-        Rectangle rec1 = new Rectangle(x,y,ResourceMgr.bulletU.getWidth(),
-                ResourceMgr.bulletU.getHeight());
 
-        Rectangle rec2 = new Rectangle(tank.getX(),tank.getY(),
-                ResourceMgr.goodTankU.getWidth(),ResourceMgr.goodTankU.getHeight());
-
-        if(rec1.intersects(rec2)){
-          this.die();
-          tank.die();
-        }
+    public Rectangle getRect(){
+        return rect;
     }
 
-    private void die() {
+    public void die() {
         this.setLive(false);
     }
 

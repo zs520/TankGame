@@ -22,7 +22,7 @@ public class Explode extends AbstractObjejct {
         this.x = x;
         this.y = y;
     }
-
+    @Override
     public void paint(Graphics g) {
         if (!live){
             return;

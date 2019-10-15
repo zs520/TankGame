@@ -2,5 +2,6 @@
  GameWidth=800
  GameHeight=600
 #tank Fire Strategy
-  #tankFireStrategy=DefalutFireStrategy
-  tankFireStrategy=FourDirFireStrategy
+#tankFireStrategy=DefalutFireStrategy
+tankFireStrategy=FourDirFireStrategy
+Collider=BulletTankCollider,BulletWallCollider,TankWallCollider

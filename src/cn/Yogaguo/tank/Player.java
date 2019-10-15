@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("all")
-public class Player {
+public class Player extends AbstractObjejct {
 	 private int x, y;
 	 private Direct dir ;
 	 public static final int SPEED = 5;
@@ -38,7 +38,7 @@ public class Player {
 	public void setDir(Direct dir) {
 		this.dir = dir;
 	}
-
+    @Override
 	public boolean isLive() {
 		return live;
 	}
@@ -62,7 +62,7 @@ public class Player {
 	public void setY(int y) {
 		this.y = y;
 	}
-
+    @Override
 	public void paint(Graphics g) {
 	 	if(!this.isLive()){
 	 		return;
