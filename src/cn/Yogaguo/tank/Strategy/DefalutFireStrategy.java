@@ -10,6 +10,6 @@ public class DefalutFireStrategy implements FireStrategy {
     public void fire(Player p) {
         int bx = p.getX() + ResourceMgr.goodTankU.getWidth()/2 - ResourceMgr.bulletU.getWidth();
         int by = p.getY() + ResourceMgr.goodTankU.getHeight()/2 - ResourceMgr.bulletU.getHeight();
-        TankFrame.INSTANCE.add(new Bullet(bx+7,by-5,p.getDir(),p.getGroup()));
+        TankFrame.INSTANCE.getMode().add(new Bullet(bx+7,by-5,p.getDir(),p.getGroup()));
     }
 }

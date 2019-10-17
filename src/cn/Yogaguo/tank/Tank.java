@@ -124,7 +124,7 @@ public class Tank extends AbstractObjejct {
     private void fire() {
         int bx = x +  Width / 2 - ResourceMgr.bulletU.getWidth();
         int by = y +  Height/ 2 - ResourceMgr.bulletU.getHeight();
-        TankFrame.INSTANCE.add(new Bullet(bx + 7, by - 5, this.dir, this.group));
+        TankFrame.INSTANCE.getMode().add(new Bullet(bx + 7, by - 5, this.dir, this.group));
     }
     public Rectangle getRect(){
         return rect;
@@ -144,6 +144,6 @@ public class Tank extends AbstractObjejct {
 
     public void die() {
         this.setLive(false);
-        TankFrame.INSTANCE.add(new Explode(x,y));
+        TankFrame.INSTANCE.getMode().add(new Explode(x,y));
     }
 }

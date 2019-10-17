@@ -9,7 +9,7 @@ public class FourDirFireStrategy implements FireStrategy {
         int by = p.getY() + ResourceMgr.goodTankU.getHeight()/2 - ResourceMgr.bulletU.getHeight();
         Direct[] dir = Direct.values();
         for(Direct d : dir) {
-            TankFrame.INSTANCE.add(new Bullet(bx + 7, by - 5, d, p.getGroup()));
+            TankFrame.INSTANCE.getMode().add(new Bullet(bx + 7, by - 5, d, p.getGroup()));
         }
     }
 }
