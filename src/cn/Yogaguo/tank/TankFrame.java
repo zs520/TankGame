@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,8 +66,55 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
+            if(key == KeyEvent.VK_S){
+                save();
+            }
+            else if(key == KeyEvent.VK_L){
+                load();
+            }
             mode.getMyTank().keyPressed(e);
 
+        }
+
+        private void save() {
+            ObjectOutputStream os = null;
+            try {
+
+                FileOutputStream fos = new FileOutputStream(new File("E:/test/game.dat"));
+                os = new ObjectOutputStream(fos);
+                os.writeObject(mode);
+                os.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }  finally {
+                if(os != null){
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+        private void load(){
+            ObjectInput ois = null;
+            try {
+                FileInputStream ins = new FileInputStream(new File("E:/test/game.dat"));
+                ois = new ObjectInputStream(ins);
+                 mode = (GameMode) ois.readObject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                if(ois != null){
+                    try {
+                        ois.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        }
         }
 
         @Override

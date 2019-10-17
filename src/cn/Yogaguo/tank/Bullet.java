@@ -9,7 +9,7 @@ public class Bullet extends AbstractObjejct {
     private Group group;
     private boolean live = true;
     private Rectangle rect = null;
-    private int Width = ResourceMgr.bulletU.getWidth();
+    private  int Width = ResourceMgr.bulletU.getWidth();
     private int Height = ResourceMgr.bulletU.getHeight();
 
     public void setRect(Rectangle rect) {
