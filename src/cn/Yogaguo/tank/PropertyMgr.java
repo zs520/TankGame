@@ -8,7 +8,7 @@ public class PropertyMgr {
     static {
         pro = new Properties();
         try {
-            pro.load(ResourceMgr.class.getClassLoader().getResourceAsStream("config"));
+            pro.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
         } catch (IOException e) {
             e.printStackTrace();
         }

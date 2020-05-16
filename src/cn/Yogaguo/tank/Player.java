@@ -5,6 +5,7 @@ import cn.Yogaguo.tank.Strategy.FireStrategy;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.UUID;
 
 @SuppressWarnings("all")
 public class Player extends AbstractObjejct {
@@ -16,12 +17,21 @@ public class Player extends AbstractObjejct {
 	 private boolean live = true;
 	 private Group group;
      private Bullet bullet;
+     private UUID id = UUID.randomUUID();
 	 public Player(int x, int y, Direct dir, Group group) {
           this.x = x;
           this.y = y;
           this.dir = dir;
           this.group = group;
 	 }
+
+	public boolean isMoving() {
+		return moving;
+	}
+
+	public UUID getId() {
+		return id;
+	}
 
 	public Group getGroup() {
 		return group;
@@ -67,7 +77,10 @@ public class Player extends AbstractObjejct {
 	 	if(!this.isLive()){
 	 		return;
 		}
-
+          Color c = g.getColor();
+	 	     g.setColor(Color.yellow);
+	 	     g.drawString(id.toString(),x,y-10);
+	 	     g.setColor(c);
              switch (dir) {
                  case L:
                      g.drawImage(ResourceMgr.goodTankL, x, y, null);
